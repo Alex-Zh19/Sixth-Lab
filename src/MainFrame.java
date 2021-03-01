@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,8 @@ public class MainFrame extends JFrame {
     private JPanel field = new JPanel();
 
     private JMenuItem newBallMenuItem;
+
+    private JMenuItem frictionMenuItem;
 
     private JCheckBoxMenuItem magnettoMenuItem;
     private JCheckBoxMenuItem sandPaperMenuItem;
@@ -34,6 +38,7 @@ public class MainFrame extends JFrame {
         menu.add(controlMenu);
 
         newBallMenuItem = ballsMenu.add(newBallMenuItemAction);
+        frictionMenuItem=ballsMenu.add(frictionMenuItemAction);
 
         magnettoMenuItem = new JCheckBoxMenuItem("Магнетизм");
         controlMenu.add(magnettoMenuItem);
@@ -77,6 +82,25 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("add boll pressed");
+        }
+    };
+
+    Action frictionMenuItemAction=new AbstractAction("Установить трение") {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            String input="0";
+            input = JOptionPane.showInputDialog(MainFrame.this,
+                    "Введите значение трения", "Трение",
+                    JOptionPane.QUESTION_MESSAGE);
+            Integer in;
+            try{
+             in=Integer.parseInt(input);}
+            catch (NumberFormatException ex){
+               in=0;
+               System.out.println("wrong number");
+            }
+
+            System.out.println(in);
         }
     };
 
