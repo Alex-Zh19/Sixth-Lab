@@ -1,5 +1,3 @@
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -88,7 +86,7 @@ public class MainFrame extends JFrame {
     Action frictionMenuItemAction=new AbstractAction("Установить трение") {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            String input="0";
+            String input;
             input = JOptionPane.showInputDialog(MainFrame.this,
                     "Введите значение трения", "Трение",
                     JOptionPane.QUESTION_MESSAGE);
@@ -99,8 +97,7 @@ public class MainFrame extends JFrame {
                in=0;
                System.out.println("wrong number");
             }
-
-            System.out.println(in);
+               System.out.println(in);
         }
     };
 
