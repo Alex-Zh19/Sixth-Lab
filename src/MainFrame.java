@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.NumberFormat;
 
 public class MainFrame extends JFrame {
     private int width = 500;
     private int height = 450;
+    private int time=0;
+
     private JMenuBar menu = new JMenuBar();
     private JMenu ballsMenu = new JMenu("Мячи");
     private JMenu controlMenu = new JMenu("Управление");
@@ -38,6 +41,7 @@ public class MainFrame extends JFrame {
 
         newBallMenuItem = ballsMenu.add(newBallMenuItemAction);
         frictionMenuItem=ballsMenu.add(frictionMenuItemAction);
+        frictionMenuItem.setEnabled(false);
 
         magnettoMenuItem = new JCheckBoxMenuItem("Магнетизм");
         controlMenu.add(magnettoMenuItem);
@@ -84,6 +88,7 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             field.AddBall();
+            frictionMenuItem.setEnabled(true);
         }
     };
 
@@ -94,14 +99,15 @@ public class MainFrame extends JFrame {
             input = JOptionPane.showInputDialog(MainFrame.this,
                     "Введите значение трения", "Трение",
                     JOptionPane.QUESTION_MESSAGE);
-            Integer in;
+
             try{
-             in=Integer.parseInt(input);}
-            catch (NumberFormatException ex){
-               in=0;
-               System.out.println("wrong number");
+            Double in=Double.parseDouble(input);
+            field.SetFriction(in);
             }
-               System.out.println(in);
+            catch (NumberFormatException ex){
+                System.out.println("wrong number");
+            }
+
         }
     };
 
@@ -182,13 +188,15 @@ public class MainFrame extends JFrame {
     class SpeedPlusListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("speedPlus button pressed");
+            ++time;
+            field.SetTimeMachine(time);
         }
     }
     class SpeedMinusListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("speedMinus button pressed");
+            --time;
+            field.SetTimeMachine(time);
         }
     }
     class PauseListener implements ActionListener{

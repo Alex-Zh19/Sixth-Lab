@@ -7,17 +7,18 @@ public class BouncingBall{
     private int radius;
     private double speedX;
     private double speedY;
-    private  int speed;
+    private  double speed;
     private Color color;
     private double x;
     private double y;
+    private boolean isMagneto=false;
+
 
     public BouncingBall(Field field) {
         int maxRadius=40;
         int minRadius=3;
 
-        int maxSpeed=19;
-
+        int maxSpeed=15;
 
         this.field = field;
 
@@ -46,6 +47,7 @@ public class BouncingBall{
         thisThread.start();
     }
 
+
     public void paint(Graphics2D canvas) {
         canvas.setColor(color);
         canvas.setPaint(color);
@@ -59,27 +61,32 @@ public class BouncingBall{
         public void run() {
             try {
                 while (true) {
+                    if(speed>=-200){
+                        speed-= field.GetFriction();
+                    }
                     field.canMove();
                     if (x + speedX <= radius) {
-
                         speedX = -speedX; x = radius;
                     } else
                     if (x + speedX >= field.getWidth() - radius) {
 
-                        speedX = -speedX; x = new Double(field.getWidth() - radius).intValue();
+                        speedX = -speedX;
+                        x = new Double(field.getWidth() - radius).intValue();
                     } else
                     if (y + speedY <= radius) {
                         speedY = -speedY; y = radius;
                     } else
                     if (y + speedY >= field.getHeight() - radius) {
-
-                        speedY = -speedY; y = new Double(field.getHeight() - radius).intValue();
+                        speedY = -speedY;
+                        y = new Double(field.getHeight() - radius).intValue();
                     } else {
-
                         x += speedX; y += speedY;
                     }
-
-                    Thread.sleep(20-speed);
+                    if(16-speed+field.GetTimeMachine()>0) {
+                        Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
+                    }else{
+                       Thread.sleep(1);
+                    }
                 }
             } catch (InterruptedException ex) {
 

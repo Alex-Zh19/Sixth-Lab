@@ -11,6 +11,8 @@ public class Field extends JPanel {
     private ArrayList<BouncingBall>balls=new ArrayList<>();
     private boolean pause;
     private ScheduledExecutorService schedule=null;
+    private double friction=0;
+    private double timeMachine=0;
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -47,8 +49,30 @@ public class Field extends JPanel {
         }
     }
 
+    public synchronized double GetFriction(){
+        return friction;
+    }
+
+    public void SetFriction(double friction) {
+        if(friction>0&&friction<=60){
+        this.friction = friction;
+        }
+        else{
+            this.friction = 0;
+        }
+    }
+
+    public void SetTimeMachine(double time){
+        this.timeMachine=time;
+    }
+
+    public synchronized double GetTimeMachine(){
+        return timeMachine;
+    }
     public synchronized void resume() {
         pause = false;
         notifyAll();
     }
+
+
 }
