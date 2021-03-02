@@ -20,7 +20,6 @@ public class Field extends JPanel {
     };
     Field(){
         setBackground(Color.WHITE);
-
         schedule=Executors.newSingleThreadScheduledExecutor();
         schedule.scheduleAtFixedRate(repaintCycle,0,20,TimeUnit.MILLISECONDS);
     }
@@ -31,10 +30,8 @@ public class Field extends JPanel {
 
 
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         Graphics2D canvas = (Graphics2D) g;
-
         for (BouncingBall ball: balls) {
             ball.paint(canvas);
         } }
@@ -46,7 +43,7 @@ public class Field extends JPanel {
     public synchronized void canMove(BouncingBall ball)
             throws InterruptedException {
         if (pause) {
-            ball.wait();
+            wait();
         }
     }
 

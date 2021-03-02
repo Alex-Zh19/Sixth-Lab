@@ -3,7 +3,7 @@ import java.awt.geom.Ellipse2D;
 
 public class BouncingBall {
 
-    private Field field;
+    private Field field=new Field();
     private int radius;
     private double speedX;
     private double speedY;
@@ -13,10 +13,10 @@ public class BouncingBall {
     private double y;
 
     public BouncingBall(Field field) {
-        int maxRadius=50;
-        int minRadius=5;
+        int maxRadius=40;
+        int minRadius=3;
 
-        int maxSpeed=40;
+        int maxSpeed=19;
 
 
         this.field = field;
@@ -66,7 +66,7 @@ public class BouncingBall {
 
                     speedX = -speedX; x = new Double(field.getWidth() - radius).intValue();
                 } else
-                if (y + speedY <= radius) {// Достигли верхней стенки
+                if (y + speedY <= radius) {
                     speedY = -speedY; y = radius;
                 } else
                 if (y + speedY >= field.getHeight() - radius) {
@@ -74,9 +74,10 @@ public class BouncingBall {
                     speedY = -speedY; y = new Double(field.getHeight() - radius).intValue();
                 } else {
 
-                    x += speedX; y += speedY; }
+                    x += speedX; y += speedY;
+                }
 
-                Thread.sleep(16-speed);
+                Thread.sleep(20-speed);
             }
         } catch (InterruptedException ex) {
 

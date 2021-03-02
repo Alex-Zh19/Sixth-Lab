@@ -73,6 +73,7 @@ public class MainFrame extends JFrame {
         grossFeederMenuItem.addItemListener(new grossFeederMenuItemListener());
         speedMinus.addActionListener(new SpeedMinusListener());
         speedPlus.addActionListener(new SpeedPlusListener());
+        pause.addActionListener(new PauseListener());
 
         add(field, BorderLayout.CENTER);
         add(buttonBox, BorderLayout.SOUTH);
@@ -193,7 +194,14 @@ public class MainFrame extends JFrame {
     class PauseListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            if(pause.getText().equals("Pause")){
             field.pause();
+            pause.setText("Continue");
+            }else{
+                field.resume();
+                pause.setText("Pause");
+            }
+
         }
     }
 }
