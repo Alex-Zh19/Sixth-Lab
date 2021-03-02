@@ -6,13 +6,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class MainFrame extends JFrame {
-    int width = 500;
-    int height = 450;
+    private int width = 500;
+    private int height = 450;
     private JMenuBar menu = new JMenuBar();
     private JMenu ballsMenu = new JMenu("Мячи");
     private JMenu controlMenu = new JMenu("Управление");
 
-    private JPanel field = new JPanel();
+    private Field field=new Field();
 
     private JMenuItem newBallMenuItem;
 
@@ -27,6 +27,7 @@ public class MainFrame extends JFrame {
 
     private JButton speedPlus = new JButton("-");
     private JButton speedMinus = new JButton("+");
+    private JButton pause = new JButton("Pause");
 
     MainFrame() {
         field.setPreferredSize(new Dimension(width, height));
@@ -61,6 +62,8 @@ public class MainFrame extends JFrame {
         buttonBox.add(speedMinus);
         buttonBox.add(Box.createHorizontalStrut(5));
         buttonBox.add(speedPlus);
+        buttonBox.add(Box.createHorizontalStrut(5));
+        buttonBox.add(pause);
 
         magnettoMenuItem.addItemListener(new magnettoMenuItemListener());
         sandPaperMenuItem.addItemListener(new sandPaperMenuItemListener());
@@ -79,7 +82,7 @@ public class MainFrame extends JFrame {
     Action newBallMenuItemAction = new AbstractAction("Добавить мяч") {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("add boll pressed");
+            field.AddBall();
         }
     };
 
@@ -185,6 +188,12 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("speedMinus button pressed");
+        }
+    }
+    class PauseListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            field.pause();
         }
     }
 }
