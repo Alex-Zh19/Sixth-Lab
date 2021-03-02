@@ -117,9 +117,11 @@ public class MainFrame extends JFrame {
              JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
              if(helper.isSelected()){
                  System.out.println("magnetto on");
+                 field.MagnetoOn();
              }
              else{
                  System.out.println("magnetto off");
+                 field.MagnetoOff();
              }
          }
      }

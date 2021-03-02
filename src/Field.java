@@ -13,6 +13,7 @@ public class Field extends JPanel {
     private ScheduledExecutorService schedule=null;
     private double friction=0;
     private double timeMachine=0;
+    private boolean isMagneto=false;
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -60,6 +61,17 @@ public class Field extends JPanel {
         else{
             this.friction = 0;
         }
+    }
+
+    public  void MagnetoOn() {
+        isMagneto=true;
+    }
+    public  void MagnetoOff() {
+        isMagneto=false;
+    }
+
+    public synchronized boolean GetIsMagneto(){
+        return isMagneto;
     }
 
     public void SetTimeMachine(double time){

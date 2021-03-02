@@ -11,7 +11,7 @@ public class BouncingBall{
     private Color color;
     private double x;
     private double y;
-    private boolean isMagneto=false;
+    private boolean isOnBorder=false;
 
 
     public BouncingBall(Field field) {
@@ -47,7 +47,6 @@ public class BouncingBall{
         thisThread.start();
     }
 
-
     public void paint(Graphics2D canvas) {
         canvas.setColor(color);
         canvas.setPaint(color);
@@ -61,26 +60,38 @@ public class BouncingBall{
         public void run() {
             try {
                 while (true) {
+
                     if(speed>=-200){
                         speed-= field.GetFriction();
                     }
+
                     field.canMove();
                     if (x + speedX <= radius) {
-                        speedX = -speedX; x = radius;
+                        speedX = -speedX;
+                        x = radius;
+                        isOnBorder=true;
                     } else
                     if (x + speedX >= field.getWidth() - radius) {
-
                         speedX = -speedX;
                         x = new Double(field.getWidth() - radius).intValue();
+                        isOnBorder=true;
                     } else
                     if (y + speedY <= radius) {
-                        speedY = -speedY; y = radius;
+                        speedY = -speedY;
+                        y = radius;
+                        isOnBorder=true;
                     } else
                     if (y + speedY >= field.getHeight() - radius) {
                         speedY = -speedY;
                         y = new Double(field.getHeight() - radius).intValue();
+                        isOnBorder=true;
                     } else {
+                        if(field.GetIsMagneto()&&isOnBorder){
+
+                        }else{
                         x += speedX; y += speedY;
+                        isOnBorder=false;
+                        }
                     }
                     if(16-speed+field.GetTimeMachine()>0) {
                         Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
