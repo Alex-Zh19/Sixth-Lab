@@ -1,9 +1,9 @@
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class BouncingBall extends Thread{
+public class BouncingBall{
 
-    private Field field=new Field();
+    private Field field;
     private int radius;
     private double speedX;
     private double speedY;
