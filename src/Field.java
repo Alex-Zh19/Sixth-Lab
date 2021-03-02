@@ -14,6 +14,7 @@ public class Field extends JPanel {
     private double friction=0;
     private double timeMachine=0;
     private boolean isMagneto=false;
+    private boolean isFriction=false;
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -50,8 +51,19 @@ public class Field extends JPanel {
         }
     }
 
+    public synchronized boolean GetIsFriction(){
+        return isFriction;
+    }
+
     public synchronized double GetFriction(){
         return friction;
+    }
+
+    public void FrictionOn(){
+        isFriction=true;
+    }
+    public void FrictionOff(){
+        isFriction=false;
     }
 
     public void SetFriction(double friction) {

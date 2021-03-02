@@ -62,7 +62,9 @@ public class BouncingBall{
                 while (true) {
 
                     if(speed>=-200){
+                        if(field.GetIsFriction()){
                         speed-= field.GetFriction();
+                        }
                     }
 
                     field.canMove();

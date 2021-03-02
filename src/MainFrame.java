@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
 
     private JMenuItem frictionMenuItem;
 
+    private JCheckBoxMenuItem checkfrictionMenuItem;
     private JCheckBoxMenuItem magnettoMenuItem;
     private JCheckBoxMenuItem sandPaperMenuItem;
     private JCheckBoxMenuItem snowBallMenuItem;
@@ -42,6 +43,9 @@ public class MainFrame extends JFrame {
         newBallMenuItem = ballsMenu.add(newBallMenuItemAction);
         frictionMenuItem=ballsMenu.add(frictionMenuItemAction);
         frictionMenuItem.setEnabled(false);
+
+        checkfrictionMenuItem = new JCheckBoxMenuItem("Трение");
+        controlMenu.add(checkfrictionMenuItem);
 
         magnettoMenuItem = new JCheckBoxMenuItem("Магнетизм");
         controlMenu.add(magnettoMenuItem);
@@ -69,6 +73,7 @@ public class MainFrame extends JFrame {
         buttonBox.add(Box.createHorizontalStrut(5));
         buttonBox.add(pause);
 
+        checkfrictionMenuItem.addItemListener(new checkFrictionMenuItemListener());
         magnettoMenuItem.addItemListener(new magnettoMenuItemListener());
         sandPaperMenuItem.addItemListener(new sandPaperMenuItemListener());
         snowBallMenuItem.addItemListener(new snowBallMenuItemListener());
@@ -110,6 +115,20 @@ public class MainFrame extends JFrame {
 
         }
     };
+    class checkFrictionMenuItemListener implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("checkFriction on");
+                field.FrictionOn();
+            }
+            else{
+                System.out.println("checkFriction off");
+                field.FrictionOff();
+            }
+        }
+    }
 
      class magnettoMenuItemListener implements ItemListener {
          @Override
