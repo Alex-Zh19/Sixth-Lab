@@ -20,6 +20,8 @@ public class MainFrame extends JFrame {
     private JMenuItem newBallMenuItem;
 
     private JMenuItem frictionMenuItem;
+    private JMenuItem sandPaperCountMenuItem;
+    private JMenuItem snowBallCountMenuItem;
 
     private JCheckBoxMenuItem checkfrictionMenuItem;
     private JCheckBoxMenuItem magnettoMenuItem;
@@ -41,8 +43,15 @@ public class MainFrame extends JFrame {
         menu.add(controlMenu);
 
         newBallMenuItem = ballsMenu.add(newBallMenuItemAction);
+
         frictionMenuItem=ballsMenu.add(frictionMenuItemAction);
         frictionMenuItem.setEnabled(false);
+
+        sandPaperCountMenuItem=ballsMenu.add(sandPaperCountMenuItemAction);
+        sandPaperCountMenuItem.setEnabled(false);
+
+        snowBallCountMenuItem=ballsMenu.add(SnowBallCountMenuItemAction);
+        snowBallCountMenuItem.setEnabled(false);
 
         checkfrictionMenuItem = new JCheckBoxMenuItem("Трение");
         controlMenu.add(checkfrictionMenuItem);
@@ -94,6 +103,8 @@ public class MainFrame extends JFrame {
         public void actionPerformed(ActionEvent actionEvent) {
             field.AddBall();
             frictionMenuItem.setEnabled(true);
+            sandPaperCountMenuItem.setEnabled(true);
+            snowBallCountMenuItem.setEnabled(true);
         }
     };
 
@@ -106,7 +117,11 @@ public class MainFrame extends JFrame {
                     JOptionPane.QUESTION_MESSAGE);
 
             try{
-            Double in=Double.parseDouble(input);
+            Double in=0.0;
+            try{
+            in=Double.parseDouble(input); }catch (NullPointerException e){
+                    System.out.println("you aren't enter number");
+            }
             field.SetFriction(in);
             }
             catch (NumberFormatException ex){
@@ -115,6 +130,62 @@ public class MainFrame extends JFrame {
 
         }
     };
+
+    Action sandPaperCountMenuItemAction=new AbstractAction("Наждачка") {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            String input;
+            input = JOptionPane.showInputDialog(MainFrame.this,
+                    "Введите значение наждачки", "Наждачка",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            try{
+                Double in=0.0;
+                try{
+                in=Double.parseDouble(input);}catch (NullPointerException e){
+                    System.out.println("you aren't enter number");
+                }
+                field.SetSandPaper(in);
+            }
+            catch (NumberFormatException ex){
+                System.out.println("wrong number");
+            }
+        }
+    };
+
+    Action SnowBallCountMenuItemAction=new AbstractAction("Снежный ком") {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            String input1;
+            input1 = JOptionPane.showInputDialog(MainFrame.this,
+                    "Введите значение кома X", "Снежный ком",
+                    JOptionPane.QUESTION_MESSAGE);
+            String input2;
+            input2 = JOptionPane.showInputDialog(MainFrame.this,
+                    "Введите значение кома Y", "Снежный ком",
+                    JOptionPane.QUESTION_MESSAGE);
+            try{
+                Double in1=0.0;
+                try{
+                in1=Double.parseDouble(input1);}catch (NullPointerException e){
+                    System.out.println("you aren't enter number");
+                }
+                field.SetSnowBallX(in1);
+
+                Double in2=0.0;
+                try{
+                in2=Double.parseDouble(input2);
+                }catch (NullPointerException e){
+                    System.out.println("you aren't enter number");
+                }
+                field.SetSnowBallY(in2);
+            }
+            catch (NumberFormatException ex){
+                System.out.println("wrong number");
+            }
+        }
+    };
+
     class checkFrictionMenuItemListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent itemEvent) {
@@ -150,9 +221,11 @@ public class MainFrame extends JFrame {
             JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
             if(helper.isSelected()){
                 System.out.println("sandPaper on");
+                field.SandPaperOn();
             }
             else{
                 System.out.println("sandPaper off");
+                field.SandPaperOff();
             }
         }
     }
@@ -162,9 +235,11 @@ public class MainFrame extends JFrame {
             JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
             if(helper.isSelected()){
                 System.out.println("snowBall on");
+                field.SnowBallOn();
             }
             else{
                 System.out.println("snowBall off");
+                field.SnowBallOff();
             }
         }
     }

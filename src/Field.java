@@ -11,10 +11,20 @@ public class Field extends JPanel {
     private ArrayList<BouncingBall>balls=new ArrayList<>();
     private boolean pause;
     private ScheduledExecutorService schedule=null;
+
     private double friction=0;
-    private double timeMachine=0;
-    private boolean isMagneto=false;
     private boolean isFriction=false;
+
+    private double timeMachine=0;
+
+    private boolean isMagneto=false;
+
+    private double sandPaper=0;
+    private boolean isSandPaper=false;
+
+    private double snowBallX=0;
+    private double snowBallY=0;
+    private boolean isSnowBall=false;
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -50,9 +60,24 @@ public class Field extends JPanel {
           wait();
         }
     }
+    public synchronized void resume() {
+        pause = false;
+        notifyAll();
+    }
 
+
+    //friction
     public synchronized boolean GetIsFriction(){
         return isFriction;
+    }
+
+    public void SetFriction(double friction) {
+        if(friction>0&&friction<=60){
+            this.friction = sandPaper;
+        }
+        else{
+            this.friction = 0;
+        }
     }
 
     public synchronized double GetFriction(){
@@ -66,15 +91,69 @@ public class Field extends JPanel {
         isFriction=false;
     }
 
-    public void SetFriction(double friction) {
-        if(friction>0&&friction<=60){
-        this.friction = friction;
+
+    //sandPaper
+    public void SetSandPaper(double sandPaper) {
+        if(sandPaper>0&&sandPaper<=10){
+        this.sandPaper = sandPaper;
         }
         else{
-            this.friction = 0;
+            this.sandPaper = 0;
+        }
+        System.out.println(this.sandPaper);
+    }
+
+    public synchronized double GetSandPaper(){
+        return sandPaper;
+    }
+
+    public  void SandPaperOn() {
+        isSandPaper=true;
+    }
+    public  void SandPaperOff() {
+        isSandPaper=false;
+    }
+    public synchronized boolean GetIsSandPaper(){
+        return isSandPaper;
+    }
+
+    //snowBall
+    public void SetSnowBallX(double snowBallX) {
+        if(snowBallX>0&&snowBallX<=60){
+            this.snowBallX = snowBallX;
+        }
+        else{
+            this.snowBallX = 0;
         }
     }
 
+    public void SetSnowBallY(double snowBallY) {
+        if(snowBallY>0&&snowBallY<=10){
+            this.snowBallY = snowBallY;
+        }
+        else{
+            this.snowBallY = 0;
+        }
+    }
+    public synchronized double GetSnowBallX(){
+        return snowBallX;
+    }
+    public synchronized double GetSnowBallY(){
+        return snowBallY;
+    }
+
+    public void SnowBallOn(){
+        isSnowBall=true;
+    }
+    public void SnowBallOff(){
+        isSnowBall=false;
+    }
+    public synchronized boolean GetIsSnowBall(){
+        return isSnowBall;
+    }
+
+
+    //magneto
     public  void MagnetoOn() {
         isMagneto=true;
     }
@@ -86,6 +165,7 @@ public class Field extends JPanel {
         return isMagneto;
     }
 
+    //plus minus time
     public void SetTimeMachine(double time){
         this.timeMachine=time;
     }
@@ -93,10 +173,7 @@ public class Field extends JPanel {
     public synchronized double GetTimeMachine(){
         return timeMachine;
     }
-    public synchronized void resume() {
-        pause = false;
-        notifyAll();
-    }
+
 
 
 }

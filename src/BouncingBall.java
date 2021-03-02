@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 public class BouncingBall{
 
     private Field field;
+    Thread thisThread;
     private int radius;
     private double speedX;
     private double speedY;
@@ -42,7 +43,7 @@ public class BouncingBall{
         y = Math.random()*(field.getSize().getHeight() - 2*radius) + radius;
 
 
-        Thread thisThread = new Thread(myBalls);
+         thisThread= new Thread(myBalls);
 
         thisThread.start();
     }
@@ -88,9 +89,22 @@ public class BouncingBall{
                         y = new Double(field.getHeight() - radius).intValue();
                         isOnBorder=true;
                     } else {
-                        if(field.GetIsMagneto()&&isOnBorder){
-
-                        }else{
+                        if(isOnBorder&&field.GetIsMagneto()){
+                            //nothing
+                        }else if(field.GetIsSandPaper()&&isOnBorder){
+                            radius-=field.GetSandPaper();
+                            if(radius<=0){
+                                thisThread.interrupt();
+                            }
+                            if(field.GetIsSnowBall()){
+                            SnowBallMethod();}
+                            x += speedX; y += speedY;
+                            isOnBorder=false;
+                        }
+                        else{
+                            if(field.GetIsSnowBall()){
+                        SnowBallMethod();
+                            }
                         x += speedX; y += speedY;
                         isOnBorder=false;
                         }
@@ -107,5 +121,11 @@ public class BouncingBall{
         }
     };
 
+    private void SnowBallMethod(){
+            if(radius<=50){
+                int path=(int)Math.round(Math.sqrt(speedX*speedX+speedY*speedY));
+                radius+=(int)Math.round((path* field.GetSnowBallY())/ field.GetSnowBallX());
+            }
+        }
 
 }
