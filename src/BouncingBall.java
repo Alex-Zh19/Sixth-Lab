@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class BouncingBall {
+public class BouncingBall extends Thread{
 
     private Field field=new Field();
     private int radius;
@@ -41,7 +41,7 @@ public class BouncingBall {
         y = Math.random()*(field.getSize().getHeight() - 2*radius) + radius;
 
 
-        Thread thisThread = new Thread(this::run);
+        Thread thisThread = new Thread(myBalls);
 
         thisThread.start();
     }
@@ -54,35 +54,38 @@ public class BouncingBall {
         canvas.draw(ball);
         canvas.fill(ball);
     }
-    public void run() {
-        try {
-            while (true) {
-                field.canMove(this);
-                if (x + speedX <= radius) {
+    Runnable myBalls=new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    field.canMove();
+                    if (x + speedX <= radius) {
 
-                    speedX = -speedX; x = radius;
-                } else
-                if (x + speedX >= field.getWidth() - radius) {
+                        speedX = -speedX; x = radius;
+                    } else
+                    if (x + speedX >= field.getWidth() - radius) {
 
-                    speedX = -speedX; x = new Double(field.getWidth() - radius).intValue();
-                } else
-                if (y + speedY <= radius) {
-                    speedY = -speedY; y = radius;
-                } else
-                if (y + speedY >= field.getHeight() - radius) {
+                        speedX = -speedX; x = new Double(field.getWidth() - radius).intValue();
+                    } else
+                    if (y + speedY <= radius) {
+                        speedY = -speedY; y = radius;
+                    } else
+                    if (y + speedY >= field.getHeight() - radius) {
 
-                    speedY = -speedY; y = new Double(field.getHeight() - radius).intValue();
-                } else {
+                        speedY = -speedY; y = new Double(field.getHeight() - radius).intValue();
+                    } else {
 
-                    x += speedX; y += speedY;
+                        x += speedX; y += speedY;
+                    }
+
+                    Thread.sleep(20-speed);
                 }
+            } catch (InterruptedException ex) {
 
-                Thread.sleep(20-speed);
             }
-        } catch (InterruptedException ex) {
-
-         }
-    }
+        }
+    };
 
 
 }

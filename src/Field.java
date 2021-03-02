@@ -40,10 +40,10 @@ public class Field extends JPanel {
         pause = true;
     }
 
-    public synchronized void canMove(BouncingBall ball)
+    public synchronized void canMove()
             throws InterruptedException {
         if (pause) {
-            wait();
+          wait();
         }
     }
 
