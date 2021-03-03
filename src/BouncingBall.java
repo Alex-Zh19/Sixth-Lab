@@ -96,6 +96,9 @@ public class BouncingBall{
                         y = new Double(field.getHeight() - radius).intValue();
                         isOnBorder=true;
                     } else {
+                        if(field.GetIsTeam()){
+                            WeAreTeamMethod();
+                        }else{
                         if(isOnBorder&&field.GetIsMagneto()){
                             //nothing
                         }else if(field.GetIsSandPaper()&&isOnBorder){
@@ -110,11 +113,12 @@ public class BouncingBall{
                         }
                         else{
                             if(field.GetIsSnowBall()){
-                        SnowBallMethod();
+                                SnowBallMethod();
                             }
                         x += speedX; y += speedY;
                         isOnBorder=false;
                         }
+                       }
                     }
                     if(16-speed+field.GetTimeMachine()>0) {
                         Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
@@ -133,6 +137,32 @@ public class BouncingBall{
                 int path=(int)Math.round(Math.sqrt(speedX*speedX+speedY*speedY));
                 radius+=(int)Math.round((path* field.GetSnowBallY())/ field.GetSnowBallX());
             }
+    }
+
+    private void WeAreTeamMethod(){
+        if(this.name.equals(field.GetName())){
+            if(isOnBorder&&field.GetIsMagneto()){
+                //nothing
+            }else if(field.GetIsSandPaper()&&isOnBorder){
+                radius-=field.GetSandPaper();
+                if(radius<=0){
+                    thisThread.interrupt();
+                }
+                if(field.GetIsSnowBall()){
+                    SnowBallMethod();}
+                x += speedX; y += speedY;
+                isOnBorder=false;
+            }
+            else{
+                if(field.GetIsSnowBall()){
+                    SnowBallMethod();
+                }
+                x += speedX; y += speedY;
+                isOnBorder=false;
+            }
+        }else{
+            
         }
+    }
 
 }

@@ -26,6 +26,10 @@ public class Field extends JPanel {
     private double snowBallY=0;
     private boolean isSnowBall=false;
 
+    private String name;
+    private boolean isTeam=false;
+
+
     Runnable repaintCycle=new Runnable() {
         @Override
         public void run() {
@@ -175,5 +179,24 @@ public class Field extends JPanel {
     }
 
 
+    //we are tram
+    public void SetName(String name){
+        this.name=name;
+    }
+
+    public synchronized String GetName(){
+        return name;
+    }
+
+    public void IsTeamOn(){
+        isTeam=true;
+    }
+
+    public void IsTeamOff(){
+        isTeam=false;
+    }
+    public synchronized boolean GetIsTeam(){
+        return isTeam;
+    }
 
 }

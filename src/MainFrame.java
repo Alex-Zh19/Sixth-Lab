@@ -197,9 +197,18 @@ public class MainFrame extends JFrame {
     Action WeAreTeamAction=new AbstractAction("Мы-Команда") {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            String input;
+            input = JOptionPane.showInputDialog(MainFrame.this,
+                    "Введите имя мячей для продолжения движения", "Мы-Команда",
+                    JOptionPane.QUESTION_MESSAGE);
+            try{
+                field.SetName(input);
+            }catch (NullPointerException e){
+                System.out.println("you aren't enter String");
+            }
 
         }
-    }
+    };
 
 
 
@@ -266,9 +275,11 @@ public class MainFrame extends JFrame {
             JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
             if(helper.isSelected()){
                 System.out.println("weAreTeam on");
+                field.IsTeamOn();
             }
             else{
                 System.out.println("weAreTeam off");
+                field.IsTeamOff();
             }
         }
     }
