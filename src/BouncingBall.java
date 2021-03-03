@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
@@ -5,6 +6,8 @@ public class BouncingBall{
 
     private Field field;
     Thread thisThread;
+    private String name;
+
     private int radius;
     private double speedX;
     private double speedY;
@@ -19,6 +22,7 @@ public class BouncingBall{
         int maxRadius=40;
         int minRadius=3;
 
+        name="ball "+(int)(Math.random()*10);
         int maxSpeed=15;
 
         this.field = field;
@@ -55,6 +59,9 @@ public class BouncingBall{
                 2*radius, 2*radius);
         canvas.draw(ball);
         canvas.fill(ball);
+        canvas.setColor(Color.BLACK);
+        canvas.drawString(name,(int)Math.round(x)+radius,(int)Math.round(y));
+
     }
     Runnable myBalls=new Runnable() {
         @Override

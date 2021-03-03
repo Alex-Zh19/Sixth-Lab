@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
     private JMenuItem frictionMenuItem;
     private JMenuItem sandPaperCountMenuItem;
     private JMenuItem snowBallCountMenuItem;
+    private JMenuItem weAreTeam;
 
     private JCheckBoxMenuItem checkfrictionMenuItem;
     private JCheckBoxMenuItem magnettoMenuItem;
@@ -52,6 +53,12 @@ public class MainFrame extends JFrame {
 
         snowBallCountMenuItem=ballsMenu.add(SnowBallCountMenuItemAction);
         snowBallCountMenuItem.setEnabled(false);
+
+        weAreTeam=ballsMenu.add(WeAreTeamAction);
+        weAreTeam.setEnabled(false);
+
+
+
 
         checkfrictionMenuItem = new JCheckBoxMenuItem("Трение");
         controlMenu.add(checkfrictionMenuItem);
@@ -105,6 +112,7 @@ public class MainFrame extends JFrame {
             frictionMenuItem.setEnabled(true);
             sandPaperCountMenuItem.setEnabled(true);
             snowBallCountMenuItem.setEnabled(true);
+            weAreTeam.setEnabled(true);
         }
     };
 
@@ -185,6 +193,15 @@ public class MainFrame extends JFrame {
             }
         }
     };
+
+    Action WeAreTeamAction=new AbstractAction("Мы-Команда") {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+
+        }
+    }
+
+
 
     class checkFrictionMenuItemListener implements ItemListener {
         @Override
