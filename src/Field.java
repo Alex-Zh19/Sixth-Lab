@@ -33,6 +33,7 @@ public class Field extends JPanel {
     private int yCord;
     private boolean isCharisma=false;
 
+    private boolean isGrossFeeder=false;
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -48,6 +49,9 @@ public class Field extends JPanel {
 
     public void AddBall(){
         balls.add(new BouncingBall(this));
+    }
+    public void AddBall(int radius){
+        balls.add(new BouncingBall(this,radius));
     }
 
 
@@ -224,5 +228,17 @@ public class Field extends JPanel {
     }
     public synchronized boolean GetIsCharisma(){
         return isCharisma;
+    }
+
+    //grossFeeder
+    public void IsGrossFeederOn(){
+        isGrossFeeder=true;
+    }
+    public void IsGrossFeederOff(){
+        isGrossFeeder=false;
+    }
+
+    public synchronized boolean GetIsGrossFeeder(){
+        return isGrossFeeder;
     }
 }

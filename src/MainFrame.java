@@ -302,9 +302,12 @@ public class MainFrame extends JFrame {
         JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
         if(helper.isSelected()){
             System.out.println("grossFeeder on");
+            field.IsGrossFeederOn();
+            field.AddBall(120);
         }
         else{
             System.out.println("grossFeeder off");
+            field.IsGrossFeederOff();
         }
      }
     }
