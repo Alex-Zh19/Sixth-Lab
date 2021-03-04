@@ -241,4 +241,14 @@ public class Field extends JPanel {
     public synchronized boolean GetIsGrossFeeder(){
         return isGrossFeeder;
     }
+
+    //big billy
+    public synchronized BouncingBall FindBigBilly(){
+        for(BouncingBall ball:balls){
+            if(ball.GetName().equals("Big Billy")){
+                return ball;
+            }
+        }
+        return null;
+    }
 }

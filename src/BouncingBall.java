@@ -4,7 +4,7 @@ import java.awt.geom.Ellipse2D;
 public class BouncingBall{
 
     private Field field;
-    Thread thisThread;
+    private Thread thisThread;
     private String name;
 
     private int radius;
@@ -81,6 +81,11 @@ public class BouncingBall{
         thisThread.start();
     }
 
+    public String GetName(){
+        return this.name;
+    }
+
+
     public void paint(Graphics2D canvas) {
         canvas.setColor(color);
         canvas.setPaint(color);
@@ -101,8 +106,7 @@ public class BouncingBall{
     Runnable myBalls=new Runnable() {
         @Override
         public void run() {
-                runMethod();
-
+            RunMethod();
         }
     };
 
@@ -113,66 +117,132 @@ public class BouncingBall{
             }
     }
 
-    private void runMethod(){
+
+    private void RunMethod(){
         try {
             while (true) {
-
                 if(speed>=-200){
                     if(field.GetIsFriction()){
                         speed-= field.GetFriction();
                     }
                 }
+                if(field.GetIsGrossFeeder()) {
+                    double billyX = field.FindBigBilly().x;
+                    double billyY = field.FindBigBilly().y;
+                    double billySpeedX=field.FindBigBilly().speedX;
+                    double billySpeedY=field.FindBigBilly().speedY;
+                    int billyRadius = field.FindBigBilly().radius;
+                    if (Math.sqrt(((x+speedX-billyX-billySpeedX)*(x+speedX-billyX-billySpeedX))+((y+speedY-billyY-billySpeedY)*
+                            (y+speedY-billyY-billySpeedY)))<billyRadius-radius
+                            &&x!=billyX &&y!=billyY) {
 
-                field.canMove();
-                if (x + speedX <= radius) {
-                    speedX = -speedX;
-                    x = radius;
-                    isOnBorder=true;
-                } else
-                if (x + speedX >= field.getWidth() - radius) {
-                    speedX = -speedX;
-                    x = new Double(field.getWidth() - radius).intValue();
-                    isOnBorder=true;
-                } else
-                if (y + speedY <= radius) {
-                    speedY = -speedY;
-                    y = radius;
-                    isOnBorder=true;
-                } else
-                if (y + speedY >= field.getHeight() - radius) {
-                    speedY = -speedY;
-                    y = new Double(field.getHeight() - radius).intValue();
-                    isOnBorder=true;
-                } else {
-                    if(field.GetIsCharisma()){
-                        x= field.GetX();
-                        y= field.GetY();
-                    }
-                    else{
-                        if(field.GetIsTeam()){
-                            WeAreTeamMethod();
-                        }else{
-                            if(isOnBorder&&field.GetIsMagneto()){
-                                //nothing
-                            }else if(field.GetIsSandPaper()&&isOnBorder){
-                                radius-=field.GetSandPaper();
-                                if(radius<=0){
-                                    thisThread.interrupt();
+                        field.canMove();
+                        if (x+speedX>=billyX+billyRadius+billySpeedX&&x>billyX&&y<billyY) {
+                            System.out.println("if 1");
+                            speedX=-speedX;
+                            x=billyX+billyRadius;
+                        }else if(x+speedX>=billyX+billyRadius+billySpeedX-radius&&x>billyX&&y<billyY){
+                            System.out.println("if 2");
+                            speedX=-speedX;
+                            x=billyX+billyRadius-radius;
+                        }else if(y + speedY<=billyY-billyRadius+billySpeedY&&x>billyX&&y<billyY){
+                            System.out.println("if 3");
+                            speedY=-speedY;
+                            y=billyY-billyRadius;
+                        } else if (y + speedY<=billyY-billyRadius+billySpeedY-radius&&x>billyX&&y<billyY){
+                            System.out.println("if 4");
+                            speedY=-speedY;
+                            y=billyY-billyRadius-radius;
+
+                        }
+                        //2
+                        else if(x+speedX<=billyX-billyRadius+billySpeedX&&x<billyX&&y<billyY){
+                            System.out.println("if 5");
+                            speedX=-speedX;
+                            x=billyX-billyRadius;
+                        }else if(x+speedX<=billyX-billyRadius+billySpeedX+radius&&x<billyX&&y<billyY){
+                            System.out.println("if 6");
+                            speedX=-speedX;
+                            x=billyX-billyRadius+radius;
+                        }else if(y+speedY<=billyY-billyRadius+billySpeedY&&x<billyX&&y<billyY){
+                            System.out.println("if 7");
+                            speedY=-speedY;
+                            y=billyY-billyRadius;
+                        }else if(y+speedY<=billyY-billyRadius+billySpeedY+radius&&x<billyX&&y<billyY) {
+                            System.out.println("if 8");
+                            speedY=-speedY;
+                            y=billyY-billyRadius+radius;
+
+                        }
+
+
+                        //3
+                        else if(x+speedX<=billyX-billyRadius+billySpeedX&&x<billyX&&y>billyY){
+                            System.out.println("if 9");
+                            speedX=-speedX;
+                            x=billyX-billyRadius;
+                        }else if(x+speedX<=billyX-billyRadius+billySpeedX+radius&&x<billyX&&y>billyY){
+                            System.out.println("if 10");
+                            speedX=-speedX;
+                            x=billyX-billyRadius+radius;
+                        }else if(y+speedY>=billyY+billyRadius+billySpeedY&&x<billyX&&y>billyY){
+                            System.out.println("if 11");
+                            speedY=-speedY;
+                            y=billyY+billyRadius;
+                        }else if(y+speedY>=billyY+billyRadius+billySpeedY-radius&&x<billyX&&y>billyY) {
+                            System.out.println("if 12");
+                            speedY=-speedY;
+                            y=billyY+billyRadius-radius;
+                        }
+
+
+                        //4
+                        if (x+speedX>=billyX+billyRadius+billySpeedX&&x>billyX&&y>billyY) {
+                            System.out.println("if 13");
+                            speedX=-speedX;
+                            x=billyX+billyRadius;
+                        }else if(x+speedX>=billyX+billyRadius+billySpeedX-radius&&x>billyX&&y>billyY){
+                            System.out.println("if 14");
+                            speedX=-speedX;
+                            x=billyX+billyRadius-radius;
+                        }else if(y+speedY>=billyY+billyRadius+billySpeedY&&x>billyX&&y>billyY){
+                            System.out.println("if 15");
+                            speedY=-speedY;
+                            y=billyY+billyRadius;
+                        }else if(y+speedY>=billyY+billyRadius+billySpeedY-radius&&x>billyX&&y>billyY) {
+                            System.out.println("if 16");
+                            speedY=-speedY;
+                            y=billyY+billyRadius-radius;
+                        }
+
+                        else {
+                            if (field.GetIsCharisma()) {
+                                if (field.GetX() >= billyX + billyRadius || field.GetY() >= billyY + billyRadius) {
+
+                                } else {
+                                    x = field.GetX();
+                                    y = field.GetY();
                                 }
-                                if(field.GetIsSnowBall()){
-                                    SnowBallMethod();}
-                                x += speedX; y += speedY;
-                                isOnBorder=false;
-                            }
-                            else{
-                                if(field.GetIsSnowBall()){
-                                    SnowBallMethod();
+                            } else {
+                                if (field.GetIsTeam()) {
+                                    WeAreTeamMethod();
+                                } else {
+
+                                    if (field.GetIsSnowBall()) {
+                                        SnowBallMethod();
+                                    }
+                                    x += speedX;
+                                    y += speedY;
+
                                 }
-                                x += speedX; y += speedY;
-                                isOnBorder=false;
                             }
                         }
+                    } else {
+                        //  System.out.println("here");
+                        RunMethodLogic();
                     }
+                }else{
+                    RunMethodLogic();
                 }
                 if(16-speed+field.GetTimeMachine()>0) {
                     Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
@@ -182,6 +252,69 @@ public class BouncingBall{
             }
         } catch (InterruptedException ex) {
 
+        }
+    }
+
+    private void RunMethodLogic(){
+        if(speed>=-200){
+            if(field.GetIsFriction()){
+                speed-= field.GetFriction();
+            }
+        }
+        try {
+            field.canMove();
+        }catch (InterruptedException e){
+
+        }
+        if (x + speedX <= radius) {
+            speedX = -speedX;
+            x = radius;
+            isOnBorder=true;
+        } else
+        if (x + speedX >= field.getWidth() - radius) {
+            speedX = -speedX;
+            x = new Double(field.getWidth() - radius).intValue();
+            isOnBorder=true;
+        } else
+        if (y + speedY <= radius) {
+            speedY = -speedY;
+            y = radius;
+            isOnBorder=true;
+        } else
+        if (y + speedY >= field.getHeight() - radius) {
+            speedY = -speedY;
+            y = new Double(field.getHeight() - radius).intValue();
+            isOnBorder=true;
+        } else {
+            if(field.GetIsCharisma()){
+                x= field.GetX();
+                y= field.GetY();
+            }
+            else{
+                if(field.GetIsTeam()){
+                    WeAreTeamMethod();
+                }else{
+                    if(isOnBorder&&field.GetIsMagneto()){
+                        //nothing
+                    }else if(field.GetIsSandPaper()&&isOnBorder){
+                        radius-=field.GetSandPaper();
+                        if(radius<=0){
+                            thisThread.interrupt();
+                        }
+                        if(field.GetIsSnowBall()){
+                            SnowBallMethod();}
+                        x += speedX; y += speedY;
+                        isOnBorder=false;
+                    }
+                    else{
+                        if(field.GetIsSnowBall()){
+                            SnowBallMethod();
+                        }
+                        x += speedX; y += speedY;
+                        isOnBorder=false;
+                    }
+                }
+            }
         }
     }
 
