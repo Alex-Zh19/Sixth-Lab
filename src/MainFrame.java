@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.text.NumberFormat;
 
 public class MainFrame extends JFrame {
@@ -99,6 +96,7 @@ public class MainFrame extends JFrame {
         speedMinus.addActionListener(new SpeedMinusListener());
         speedPlus.addActionListener(new SpeedPlusListener());
         pause.addActionListener(new PauseListener());
+        addMouseMotionListener(new MouseListener() );
 
         add(field, BorderLayout.CENTER);
         add(buttonBox, BorderLayout.SOUTH);
@@ -289,9 +287,11 @@ public class MainFrame extends JFrame {
             JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
             if(helper.isSelected()){
                 System.out.println("charisma on");
+                field.IsCharismaOn();
             }
             else{
                 System.out.println("charisma off");
+                field.IsCharismaOff();
             }
         }
     }
@@ -336,4 +336,18 @@ public class MainFrame extends JFrame {
 
         }
     }
+
+    class MouseListener implements MouseMotionListener {
+
+        @Override
+        public void mouseDragged(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent mouseEvent) {
+            field.SetCords(mouseEvent.getX(),mouseEvent.getY());
+        }
+    }
+
 }

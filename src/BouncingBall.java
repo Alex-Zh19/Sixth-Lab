@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
@@ -96,29 +95,35 @@ public class BouncingBall{
                         y = new Double(field.getHeight() - radius).intValue();
                         isOnBorder=true;
                     } else {
-                        if(field.GetIsTeam()){
-                            WeAreTeamMethod();
-                        }else{
-                        if(isOnBorder&&field.GetIsMagneto()){
-                            //nothing
-                        }else if(field.GetIsSandPaper()&&isOnBorder){
-                            radius-=field.GetSandPaper();
-                            if(radius<=0){
-                                thisThread.interrupt();
-                            }
-                            if(field.GetIsSnowBall()){
-                            SnowBallMethod();}
-                            x += speedX; y += speedY;
-                            isOnBorder=false;
+                        if(field.GetIsCharisma()){
+                            x= field.GetX();
+                            y= field.GetY();
                         }
                         else{
-                            if(field.GetIsSnowBall()){
-                                SnowBallMethod();
+                          if(field.GetIsTeam()){
+                              WeAreTeamMethod();
+                          }else{
+                            if(isOnBorder&&field.GetIsMagneto()){
+                              //nothing
+                            }else if(field.GetIsSandPaper()&&isOnBorder){
+                                radius-=field.GetSandPaper();
+                                if(radius<=0){
+                                    thisThread.interrupt();
+                                }
+                                if(field.GetIsSnowBall()){
+                                SnowBallMethod();}
+                                x += speedX; y += speedY;
+                                isOnBorder=false;
                             }
-                        x += speedX; y += speedY;
-                        isOnBorder=false;
+                            else{
+                                if(field.GetIsSnowBall()){
+                                    SnowBallMethod();
+                                }
+                            x += speedX; y += speedY;
+                            isOnBorder=false;
+                            }
+                          }
                         }
-                       }
                     }
                     if(16-speed+field.GetTimeMachine()>0) {
                         Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
@@ -161,7 +166,7 @@ public class BouncingBall{
                 isOnBorder=false;
             }
         }else{
-            
+
         }
     }
 

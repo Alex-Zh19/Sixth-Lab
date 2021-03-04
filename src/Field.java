@@ -29,6 +29,10 @@ public class Field extends JPanel {
     private String name;
     private boolean isTeam=false;
 
+    private int xCord;
+    private int yCord;
+    private boolean isCharisma=false;
+
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -199,4 +203,26 @@ public class Field extends JPanel {
         return isTeam;
     }
 
+
+    //charisma
+    public void SetCords(int x,int y){
+        xCord=x;
+        yCord=y;
+    }
+    public synchronized int GetX(){
+        return xCord;
+    }
+    public synchronized int GetY(){
+        return yCord;
+    }
+
+    public void IsCharismaOn(){
+        isCharisma=true;
+    }
+    public void IsCharismaOff(){
+        isCharisma=false;
+    }
+    public synchronized boolean GetIsCharisma(){
+        return isCharisma;
+    }
 }
