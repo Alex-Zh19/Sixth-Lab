@@ -35,10 +35,14 @@ public class BouncingBall{
         if (speed>maxSpeed) {
             speed = maxSpeed;}
 
+
         double angle = Math.random()*2*Math.PI;
 
         speedX = 3*Math.cos(angle);
         speedY = 3*Math.sin(angle);
+
+        speedX=0.1;
+        speedY=0.1;
 
         color = new Color((float)Math.random(), (float)Math.random(),
                 (float)Math.random());
@@ -127,95 +131,45 @@ public class BouncingBall{
                     }
                 }
                 if(field.GetIsGrossFeeder()) {
+                  //  double left=x+speedX;
+//                        double right=billyX-billyRadius+billySpeedX;
+//                        System.out.println(left+" ? "+right);
+//                        left=y +speedY;
+//                        right= billyY-billyRadius+billySpeedY;
+//                        System.out.println(left+ " ? " +right);
                     double billyX = field.FindBigBilly().x;
                     double billyY = field.FindBigBilly().y;
                     double billySpeedX=field.FindBigBilly().speedX;
                     double billySpeedY=field.FindBigBilly().speedY;
                     int billyRadius = field.FindBigBilly().radius;
-                    if (Math.sqrt(((x+speedX-billyX-billySpeedX)*(x+speedX-billyX-billySpeedX))+((y+speedY-billyY-billySpeedY)*
-                            (y+speedY-billyY-billySpeedY)))<billyRadius-radius
-                            &&x!=billyX &&y!=billyY) {
-
+                    if (Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)* (y-billyY)))<billyRadius-radius
+                           ) {
                         field.canMove();
-                        if (x+speedX>=billyX+billyRadius+billySpeedX&&x>billyX&&y<billyY) {
-                            System.out.println("if 1");
-                            speedX=-speedX;
-                            x=billyX+billyRadius;
-                        }else if(x+speedX>=billyX+billyRadius+billySpeedX-radius&&x>billyX&&y<billyY){
-                            System.out.println("if 2");
-                            speedX=-speedX;
-                            x=billyX+billyRadius-radius;
-                        }else if(y + speedY<=billyY-billyRadius+billySpeedY&&x>billyX&&y<billyY){
-                            System.out.println("if 3");
-                            speedY=-speedY;
-                            y=billyY-billyRadius;
-                        } else if (y + speedY<=billyY-billyRadius+billySpeedY-radius&&x>billyX&&y<billyY){
-                            System.out.println("if 4");
-                            speedY=-speedY;
-                            y=billyY-billyRadius-radius;
+                        //System.out.println(Math.abs(Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))-billyRadius+radius));
+                            //System.out.println("fuck");
 
-                        }
-                        //2
-                        else if(x+speedX<=billyX-billyRadius+billySpeedX&&x<billyX&&y<billyY){
-                            System.out.println("if 5");
-                            speedX=-speedX;
-                            x=billyX-billyRadius;
-                        }else if(x+speedX<=billyX-billyRadius+billySpeedX+radius&&x<billyX&&y<billyY){
-                            System.out.println("if 6");
-                            speedX=-speedX;
-                            x=billyX-billyRadius+radius;
-                        }else if(y+speedY<=billyY-billyRadius+billySpeedY&&x<billyX&&y<billyY){
-                            System.out.println("if 7");
-                            speedY=-speedY;
-                            y=billyY-billyRadius;
-                        }else if(y+speedY<=billyY-billyRadius+billySpeedY+radius&&x<billyX&&y<billyY) {
-                            System.out.println("if 8");
-                            speedY=-speedY;
-                            y=billyY-billyRadius+radius;
-
-                        }
+                           if(Math.abs(Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))-billyRadius+radius)<=1.5)  {
+                              double speedXinBilly=speedX-billySpeedX;
+                              double speedYinBilly=speedY-billySpeedY;
+                              double speed=Math.sqrt(speedXinBilly*speedXinBilly+speedYinBilly*speedYinBilly);
+                              double cosAlpha=(speedXinBilly)/(speed);
+                              double sinAlpha=(speedYinBilly)/(speed);
+                              double cosTeta=(x-billyX)/(radius-billyRadius);
+                              double sinTeta=(y-billyY)/(radius-billyRadius);
+                              System.out.println("cosAlpha "+cosAlpha+ "  sinAlpha "+sinAlpha+"  cosTeta  "+cosTeta+"  sinTeta  "+sinTeta);
+                              double speedTang=speed*(sinTeta*cosAlpha-sinAlpha*cosTeta);
+                              double speedNorm=speed*(cosTeta*cosAlpha+sinTeta*sinAlpha);
+                              speedNorm=-speedNorm;
+                              if(cosTeta*cosAlpha+sinAlpha*sinTeta>0){
+                                  speedYinBilly=-speedNorm*cosTeta+speedTang*sinTeta;
+                                  speedXinBilly=speedNorm*sinTeta-speedTang*cosTeta;
+                                  speedX=speedXinBilly+billySpeedX;
+                                  speedY=speedYinBilly+billySpeedY;
+                              }
 
 
-                        //3
-                        else if(x+speedX<=billyX-billyRadius+billySpeedX&&x<billyX&&y>billyY){
-                            System.out.println("if 9");
-                            speedX=-speedX;
-                            x=billyX-billyRadius;
-                        }else if(x+speedX<=billyX-billyRadius+billySpeedX+radius&&x<billyX&&y>billyY){
-                            System.out.println("if 10");
-                            speedX=-speedX;
-                            x=billyX-billyRadius+radius;
-                        }else if(y+speedY>=billyY+billyRadius+billySpeedY&&x<billyX&&y>billyY){
-                            System.out.println("if 11");
-                            speedY=-speedY;
-                            y=billyY+billyRadius;
-                        }else if(y+speedY>=billyY+billyRadius+billySpeedY-radius&&x<billyX&&y>billyY) {
-                            System.out.println("if 12");
-                            speedY=-speedY;
-                            y=billyY+billyRadius-radius;
-                        }
-
-
-                        //4
-                        if (x+speedX>=billyX+billyRadius+billySpeedX&&x>billyX&&y>billyY) {
-                            System.out.println("if 13");
-                            speedX=-speedX;
-                            x=billyX+billyRadius;
-                        }else if(x+speedX>=billyX+billyRadius+billySpeedX-radius&&x>billyX&&y>billyY){
-                            System.out.println("if 14");
-                            speedX=-speedX;
-                            x=billyX+billyRadius-radius;
-                        }else if(y+speedY>=billyY+billyRadius+billySpeedY&&x>billyX&&y>billyY){
-                            System.out.println("if 15");
-                            speedY=-speedY;
-                            y=billyY+billyRadius;
-                        }else if(y+speedY>=billyY+billyRadius+billySpeedY-radius&&x>billyX&&y>billyY) {
-                            System.out.println("if 16");
-                            speedY=-speedY;
-                            y=billyY+billyRadius-radius;
-                        }
-
-                        else {
+                           }
+                           else {
                             if (field.GetIsCharisma()) {
                                 if (field.GetX() >= billyX + billyRadius || field.GetY() >= billyY + billyRadius) {
 

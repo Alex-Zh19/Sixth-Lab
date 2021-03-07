@@ -44,7 +44,7 @@ public class Field extends JPanel {
     Field(){
         setBackground(Color.WHITE);
         schedule=Executors.newSingleThreadScheduledExecutor();
-        schedule.scheduleAtFixedRate(repaintCycle,0,20,TimeUnit.MILLISECONDS);
+        schedule.scheduleAtFixedRate(repaintCycle,0,1,TimeUnit.MILLISECONDS);
     }
 
     public void AddBall(){
