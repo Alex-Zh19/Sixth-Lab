@@ -12,6 +12,15 @@ public class Field extends JPanel {
     private boolean pause;
     private ScheduledExecutorService schedule=null;
 
+    private double distanceBetweenBillyAndBall=0;
+
+    public synchronized void SetFistance(double d){
+        distanceBetweenBillyAndBall=d;
+    }
+    public synchronized double GetD(){
+        return distanceBetweenBillyAndBall;
+    }
+
     private double friction=0;
     private boolean isFriction=false;
 

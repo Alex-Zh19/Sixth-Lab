@@ -41,8 +41,8 @@ public class BouncingBall{
         speedX = 3*Math.cos(angle);
         speedY = 3*Math.sin(angle);
 
-        speedX=0.1;
-        speedY=0.1;
+       // speedX=0.1;
+       // speedY=0.1;
 
         color = new Color((float)Math.random(), (float)Math.random(),
                 (float)Math.random());
@@ -125,6 +125,7 @@ public class BouncingBall{
     private void RunMethod(){
         try {
             while (true) {
+
                 if(speed>=-200){
                     if(field.GetIsFriction()){
                         speed-= field.GetFriction();
@@ -139,34 +140,40 @@ public class BouncingBall{
 //                        System.out.println(left+ " ? " +right);
                     double billyX = field.FindBigBilly().x;
                     double billyY = field.FindBigBilly().y;
-                    double billySpeedX=field.FindBigBilly().speedX;
-                    double billySpeedY=field.FindBigBilly().speedY;
+                    double billySpeedX=field.FindBigBilly().speedX/(16-field.FindBigBilly().speed);
+                    double billySpeedY=field.FindBigBilly().speedY/(16-field.FindBigBilly().speed);
                     int billyRadius = field.FindBigBilly().radius;
-                    if (Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)* (y-billyY)))<billyRadius-radius
-                           ) {
+                    double newSpeedX=speedX/(16-speed);
+                    double newSpeedY=speedY/(16-speed);
+                    if (Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))<billyRadius-radius) {
                         field.canMove();
-                        //System.out.println(Math.abs(Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))-billyRadius+radius));
-                            //System.out.println("fuck");
 
-                           if(Math.abs(Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))-billyRadius+radius)<=1.5)  {
-                              double speedXinBilly=speedX-billySpeedX;
-                              double speedYinBilly=speedY-billySpeedY;
-                              double speed=Math.sqrt(speedXinBilly*speedXinBilly+speedYinBilly*speedYinBilly);
-                              double cosAlpha=(speedXinBilly)/(speed);
-                              double sinAlpha=(speedYinBilly)/(speed);
-                              double cosTeta=(x-billyX)/(radius-billyRadius);
-                              double sinTeta=(y-billyY)/(radius-billyRadius);
+
+                        int left=(int)Math.round(Math.sqrt((x+newSpeedX-billyX-billySpeedX)*(x+newSpeedX-billyX-billySpeedX))+
+                                ((y+newSpeedY-billyY-billySpeedY)*(y+newSpeedY-billyY-billySpeedY)));
+                        System.out.println(left+" ? "+(billyRadius-radius));
+                            //System.out.println("fuck");
+                           if(left>=(billyRadius-radius)
+                                   &&x!=billyX&&y!=billyY)  {
+                               double speedy=Math.sqrt(newSpeedX*newSpeedX+newSpeedY*newSpeedY);
+                              double speedXinBilly=newSpeedX-billySpeedX;
+                              double speedYinBilly=newSpeedY-billySpeedY;
+                              double cosAlpha=(speedXinBilly)/(speedy);
+                              double sinAlpha=(speedYinBilly)/(speedy);
+                              double cosTeta=(x-billyX)/(billyRadius-radius);
+                              double sinTeta=(y-billyY)/(billyRadius-radius);
                               System.out.println("cosAlpha "+cosAlpha+ "  sinAlpha "+sinAlpha+"  cosTeta  "+cosTeta+"  sinTeta  "+sinTeta);
-                              double speedTang=speed*(sinTeta*cosAlpha-sinAlpha*cosTeta);
-                              double speedNorm=speed*(cosTeta*cosAlpha+sinTeta*sinAlpha);
+                              double speedTang=speedy*(sinTeta*cosAlpha-sinAlpha*cosTeta);
+                              double speedNorm=speedy*(cosTeta*cosAlpha+sinTeta*sinAlpha);
                               speedNorm=-speedNorm;
                               if(cosTeta*cosAlpha+sinAlpha*sinTeta>0){
                                   speedYinBilly=-speedNorm*cosTeta+speedTang*sinTeta;
                                   speedXinBilly=speedNorm*sinTeta-speedTang*cosTeta;
-                                  speedX=speedXinBilly+billySpeedX;
-                                  speedY=speedYinBilly+billySpeedY;
+                                  newSpeedX=speedXinBilly+billySpeedX;
+                                  newSpeedY=speedYinBilly+billySpeedY;
                               }
-
+                              speedX=newSpeedX*(16-speed);
+                               speedY=newSpeedY*(16-speed);
 
                            }
                            else {
@@ -192,12 +199,13 @@ public class BouncingBall{
                             }
                         }
                     } else {
-                        //  System.out.println("here");
                         RunMethodLogic();
                     }
+
                 }else{
                     RunMethodLogic();
                 }
+
                 if(16-speed+field.GetTimeMachine()>0) {
                     Thread.sleep((int) (Math.round(16 - speed + field.GetTimeMachine())));
                 }else{
