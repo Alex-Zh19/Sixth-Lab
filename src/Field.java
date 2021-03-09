@@ -44,6 +44,9 @@ public class Field extends JPanel {
 
     private boolean isGrossFeeder=false;
 
+    private boolean isStopSmallBalls=false;
+    private boolean isStopSlowBalls=false;
+
     Runnable repaintCycle=new Runnable() {
         @Override
         public void run() {
@@ -260,4 +263,30 @@ public class Field extends JPanel {
         }
         return null;
     }
+
+
+    //stopSmallBalls
+    public void IsStopSmallBallsOn(){
+        isStopSmallBalls=true;
+    }
+    public void IsStopSmallBallsOff(){
+        isStopSmallBalls=false;
+    }
+    public synchronized boolean GetIsStopSmallBalls(){
+        return isStopSmallBalls;
+    }
+
+    //stopSlowBalls
+    public void IsStopSlowBallsOn(){
+        isStopSlowBalls=true;
+    }
+    public void IsStopSlowBallsOff(){
+        isStopSlowBalls=false;
+    }
+    public synchronized boolean GetIsStopSlowBalls(){
+        return isStopSlowBalls;
+    }
+
+
+
 }

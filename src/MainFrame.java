@@ -28,6 +28,17 @@ public class MainFrame extends JFrame {
     private JCheckBoxMenuItem weAreTeamMenuItem;
     private JCheckBoxMenuItem charismaMenuItem;
     private JCheckBoxMenuItem grossFeederMenuItem;
+    private JCheckBoxMenuItem stopSmallBalls;
+    private JCheckBoxMenuItem stopSlowBalls;
+    private JCheckBoxMenuItem stopSecondQuarterSpeedBalls;
+    private JCheckBoxMenuItem stopGreenBalls;
+    private JCheckBoxMenuItem stopBigBalls;
+    private JCheckBoxMenuItem stopFastBalls;
+    private JCheckBoxMenuItem stopFirstQuarterSpeedBalls;
+    private JCheckBoxMenuItem stopBlueBalls;
+    private JCheckBoxMenuItem stopThirdQuarterSpeedBalls;
+    private JCheckBoxMenuItem stopRedBalls;
+    private JCheckBoxMenuItem stopForthQuarterSpeedBalls;
 
     private JButton speedPlus = new JButton("-");
     private JButton speedMinus = new JButton("+");
@@ -75,8 +86,23 @@ public class MainFrame extends JFrame {
         charismaMenuItem = new JCheckBoxMenuItem("Харизма");
         controlMenu.add(charismaMenuItem);
 
-        grossFeederMenuItem = new JCheckBoxMenuItem("Обжора");
-        controlMenu.add(grossFeederMenuItem);
+
+        stopSmallBalls=new JCheckBoxMenuItem("Остановить малые мячи");
+        controlMenu.add(stopSmallBalls);
+        stopSlowBalls=new JCheckBoxMenuItem("Остановить медленные мячи");
+        controlMenu.add(stopSlowBalls);
+        stopSecondQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью второй четверти");
+        stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
+        stopBigBalls=new JCheckBoxMenuItem("Остановить большие мячи");
+        stopFastBalls=new JCheckBoxMenuItem("Остановить быстрые мячи");
+        stopFirstQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью первой четверти");
+        stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
+        stopThirdQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью третьей четверти");
+        stopRedBalls=new JCheckBoxMenuItem("остановить красные мячи");
+        stopForthQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью четвертой четверти");
+
+       // grossFeederMenuItem = new JCheckBoxMenuItem("Обжора");
+       // controlMenu.add(grossFeederMenuItem);
 
         Box buttonBox = Box.createHorizontalBox();
         buttonBox.add(Box.createHorizontalStrut(width / 2));
@@ -92,11 +118,13 @@ public class MainFrame extends JFrame {
         snowBallMenuItem.addItemListener(new snowBallMenuItemListener());
         weAreTeamMenuItem.addItemListener(new weAreTeamMenuItemListener());
         charismaMenuItem.addItemListener(new charismaMenuItemListener());
-        grossFeederMenuItem.addItemListener(new grossFeederMenuItemListener());
+       // grossFeederMenuItem.addItemListener(new grossFeederMenuItemListener());
         speedMinus.addActionListener(new SpeedMinusListener());
         speedPlus.addActionListener(new SpeedPlusListener());
         pause.addActionListener(new PauseListener());
         addMouseMotionListener(new MouseListener() );
+        stopSmallBalls.addItemListener(new StopSmallBallsListener());
+        stopSlowBalls.addItemListener(new StopSlowBallsListener());
 
         add(field, BorderLayout.CENTER);
         add(buttonBox, BorderLayout.SOUTH);
@@ -350,6 +378,38 @@ public class MainFrame extends JFrame {
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
             field.SetCords(mouseEvent.getX(),mouseEvent.getY());
+        }
+    }
+
+    class StopSmallBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopSmallBallsOn");
+                field.IsStopSmallBallsOn();
+            }
+            else{
+                System.out.println("StopSmallBallsOff");
+                field.IsStopSmallBallsOff();
+            }
+        }
+    }
+
+    class StopSlowBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopSlowBallsOn");
+                field.IsStopSlowBallsOn();
+            }
+            else{
+                System.out.println("StopSlowBallsOff");
+                field.IsStopSlowBallsOff();
+            }
         }
     }
 

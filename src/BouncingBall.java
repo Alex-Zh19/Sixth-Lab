@@ -132,76 +132,7 @@ public class BouncingBall{
                     }
                 }
                 if(field.GetIsGrossFeeder()) {
-                  //  double left=x+speedX;
-//                        double right=billyX-billyRadius+billySpeedX;
-//                        System.out.println(left+" ? "+right);
-//                        left=y +speedY;
-//                        right= billyY-billyRadius+billySpeedY;
-//                        System.out.println(left+ " ? " +right);
-                    double billyX = field.FindBigBilly().x;
-                    double billyY = field.FindBigBilly().y;
-                    double billySpeedX=field.FindBigBilly().speedX/(16-field.FindBigBilly().speed);
-                    double billySpeedY=field.FindBigBilly().speedY/(16-field.FindBigBilly().speed);
-                    int billyRadius = field.FindBigBilly().radius;
-                    double newSpeedX=speedX/(16-speed);
-                    double newSpeedY=speedY/(16-speed);
-                    if (Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))<billyRadius-radius) {
-                        field.canMove();
-
-
-                        int left=(int)Math.round(Math.sqrt((x+newSpeedX-billyX-billySpeedX)*(x+newSpeedX-billyX-billySpeedX))+
-                                ((y+newSpeedY-billyY-billySpeedY)*(y+newSpeedY-billyY-billySpeedY)));
-                        System.out.println(left+" ? "+(billyRadius-radius));
-                            //System.out.println("fuck");
-                           if(left>=(billyRadius-radius)
-                                   &&x!=billyX&&y!=billyY)  {
-                               double speedy=Math.sqrt(newSpeedX*newSpeedX+newSpeedY*newSpeedY);
-                              double speedXinBilly=newSpeedX-billySpeedX;
-                              double speedYinBilly=newSpeedY-billySpeedY;
-                              double cosAlpha=(speedXinBilly)/(speedy);
-                              double sinAlpha=(speedYinBilly)/(speedy);
-                              double cosTeta=(x-billyX)/(billyRadius-radius);
-                              double sinTeta=(y-billyY)/(billyRadius-radius);
-                              System.out.println("cosAlpha "+cosAlpha+ "  sinAlpha "+sinAlpha+"  cosTeta  "+cosTeta+"  sinTeta  "+sinTeta);
-                              double speedTang=speedy*(sinTeta*cosAlpha-sinAlpha*cosTeta);
-                              double speedNorm=speedy*(cosTeta*cosAlpha+sinTeta*sinAlpha);
-                              speedNorm=-speedNorm;
-                              if(cosTeta*cosAlpha+sinAlpha*sinTeta>0){
-                                  speedYinBilly=-speedNorm*cosTeta+speedTang*sinTeta;
-                                  speedXinBilly=speedNorm*sinTeta-speedTang*cosTeta;
-                                  newSpeedX=speedXinBilly+billySpeedX;
-                                  newSpeedY=speedYinBilly+billySpeedY;
-                              }
-                              speedX=newSpeedX*(16-speed);
-                               speedY=newSpeedY*(16-speed);
-
-                           }
-                           else {
-                            if (field.GetIsCharisma()) {
-                                if (field.GetX() >= billyX + billyRadius || field.GetY() >= billyY + billyRadius) {
-
-                                } else {
-                                    x = field.GetX();
-                                    y = field.GetY();
-                                }
-                            } else {
-                                if (field.GetIsTeam()) {
-                                    WeAreTeamMethod();
-                                } else {
-
-                                    if (field.GetIsSnowBall()) {
-                                        SnowBallMethod();
-                                    }
-                                    x += speedX;
-                                    y += speedY;
-
-                                }
-                            }
-                        }
-                    } else {
-                        RunMethodLogic();
-                    }
-
+                  GrossFeederRunMethod();
                 }else{
                     RunMethodLogic();
                 }
@@ -217,17 +148,97 @@ public class BouncingBall{
         }
     }
 
+    private void GrossFeederRunMethod(){
+        System.out.println("fuck");
+        //  double left=x+speedX;
+//                        double right=billyX-billyRadius+billySpeedX;
+//                        System.out.println(left+" ? "+right);
+//                        left=y +speedY;
+//                        right= billyY-billyRadius+billySpeedY;
+//                        System.out.println(left+ " ? " +right);
+        double billyX = field.FindBigBilly().x;
+        double billyY = field.FindBigBilly().y;
+        double billySpeedX=field.FindBigBilly().speedX/(16-field.FindBigBilly().speed);
+        double billySpeedY=field.FindBigBilly().speedY/(16-field.FindBigBilly().speed);
+        int billyRadius = field.FindBigBilly().radius;
+        double newSpeedX=speedX/(16-speed);
+        double newSpeedY=speedY/(16-speed);
+        if (Math.sqrt(((x-billyX)*(x-billyX))+((y-billyY)*(y-billyY)))<billyRadius-radius) {
+            try {
+                field.canMove();
+            }catch (InterruptedException e){
+
+            }
+            int left=(int)Math.round(Math.sqrt((x+newSpeedX-billyX-billySpeedX)*(x+newSpeedX-billyX-billySpeedX))+
+                    ((y+newSpeedY-billyY-billySpeedY)*(y+newSpeedY-billyY-billySpeedY)));
+            System.out.println(left+" ? "+(billyRadius-radius));
+            //System.out.println("fuck");
+            if(left>=(billyRadius-radius)
+                    &&x!=billyX&&y!=billyY)  {
+                double speedy=Math.sqrt(newSpeedX*newSpeedX+newSpeedY*newSpeedY);
+                double speedXinBilly=newSpeedX-billySpeedX;
+                double speedYinBilly=newSpeedY-billySpeedY;
+                double cosAlpha=(speedXinBilly)/(speedy);
+                double sinAlpha=(speedYinBilly)/(speedy);
+                double cosTeta=(x-billyX)/(billyRadius-radius);
+                double sinTeta=(y-billyY)/(billyRadius-radius);
+                System.out.println("cosAlpha "+cosAlpha+ "  sinAlpha "+sinAlpha+"  cosTeta  "+cosTeta+"  sinTeta  "+sinTeta);
+                double speedTang=speedy*(sinTeta*cosAlpha-sinAlpha*cosTeta);
+                double speedNorm=speedy*(cosTeta*cosAlpha+sinTeta*sinAlpha);
+                speedNorm=-speedNorm;
+                if(cosTeta*cosAlpha+sinAlpha*sinTeta>0){
+                    speedYinBilly=-speedNorm*cosTeta+speedTang*sinTeta;
+                    speedXinBilly=speedNorm*sinTeta-speedTang*cosTeta;
+                    newSpeedX=speedXinBilly+billySpeedX;
+                    newSpeedY=speedYinBilly+billySpeedY;
+                }
+                speedX=newSpeedX*(16-speed);
+                speedY=newSpeedY*(16-speed);
+
+            }
+            else {
+                if (field.GetIsCharisma()) {
+                    if (field.GetX() >= billyX + billyRadius || field.GetY() >= billyY + billyRadius) {
+
+                    } else {
+                        x = field.GetX();
+                        y = field.GetY();
+                    }
+                } else {
+                    if (field.GetIsTeam()) {
+                        WeAreTeamMethod();
+                    } else {
+
+                        if (field.GetIsSnowBall()) {
+                            SnowBallMethod();
+                        }
+                        x += speedX;
+                        y += speedY;
+
+                    }
+                }
+            }
+        } else {
+            RunMethodLogic();
+        }
+    }
+
+
     private void RunMethodLogic(){
         if(speed>=-200){
             if(field.GetIsFriction()){
                 speed-= field.GetFriction();
             }
         }
+
         try {
             field.canMove();
         }catch (InterruptedException e){
 
         }
+        if(StopChecker()){
+
+        }else{
         if (x + speedX <= radius) {
             speedX = -speedX;
             x = radius;
@@ -278,6 +289,7 @@ public class BouncingBall{
                 }
             }
         }
+        }
     }
 
     private void WeAreTeamMethod(){
@@ -304,6 +316,27 @@ public class BouncingBall{
         }else{
 
         }
+    }
+
+    private boolean StopChecker(){
+
+        if(field.GetIsStopSmallBalls()&&radius<10){
+            System.out.println("too small");
+            return true;
+        }else if(16-speed+field.GetTimeMachine()>8&&field.GetIsStopSlowBalls()){
+            System.out.println("too slow");
+            return true;
+        }
+        
+       return false;
+        /*
+        else if(16-speed+ field.GetTimeMachine()>8&& field.GetIsStopSlowBalls()){
+            System.out.println("wtf");
+
+        }else if(16-speed+ field.GetTimeMachine()>8&& !field.GetIsStopSlowBalls()) {
+           if(ball.thisThread.getState()== Thread.State.WAITING){
+            notify();}
+        }*/
     }
 
 }
