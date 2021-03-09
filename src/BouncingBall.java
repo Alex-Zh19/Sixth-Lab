@@ -15,6 +15,7 @@ public class BouncingBall{
     private double x;
     private double y;
     private boolean isOnBorder=false;
+    private boolean isStopped=false;
 
 
 
@@ -236,6 +237,7 @@ public class BouncingBall{
         }catch (InterruptedException e){
 
         }
+
         if(StopChecker()){
 
         }else{
@@ -319,16 +321,27 @@ public class BouncingBall{
     }
 
     private boolean StopChecker(){
-
+        if(field.GetCountStoppedBall()>=5&&!isStopped){
+            return false;
+        }
         if(field.GetIsStopSmallBalls()&&radius<10){
-            System.out.println("too small");
+           if(!isStopped){
+               field.AddCountStoppedBall();
+               isStopped=true;
+           }
             return true;
         }else if(16-speed+field.GetTimeMachine()>8&&field.GetIsStopSlowBalls()){
-            System.out.println("too slow");
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
             return true;
         }
-        
-       return false;
+        if(isStopped){
+        isStopped=false;
+        field.MinusCountStoppedBall();
+        }
+        return false;
         /*
         else if(16-speed+ field.GetTimeMachine()>8&& field.GetIsStopSlowBalls()){
             System.out.println("wtf");
@@ -338,5 +351,7 @@ public class BouncingBall{
             notify();}
         }*/
     }
+
+
 
 }

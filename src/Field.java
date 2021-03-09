@@ -9,7 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Field extends JPanel {
     private ArrayList<BouncingBall>balls=new ArrayList<>();
+    int counter =0;
     private boolean pause;
+
+
     private ScheduledExecutorService schedule=null;
 
     private double distanceBetweenBillyAndBall=0;
@@ -285,6 +288,18 @@ public class Field extends JPanel {
     }
     public synchronized boolean GetIsStopSlowBalls(){
         return isStopSlowBalls;
+    }
+    public synchronized int GetCountStoppedBall(){
+        return counter;
+    }
+
+    public synchronized void AddCountStoppedBall(){
+       counter++;
+    }
+    public synchronized void MinusCountStoppedBall(){
+       if(counter>0){
+        counter--;
+       }
     }
 
 
