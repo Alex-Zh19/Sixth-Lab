@@ -97,15 +97,18 @@ public class MainFrame extends JFrame {
         controlMenu.add(stopFastBalls);
         stopSecondQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью второй четверти");
         controlMenu.add(stopSecondQuarterSpeedBalls);
-        stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
         stopFirstQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью первой четверти");
         controlMenu.add(stopFirstQuarterSpeedBalls);
-        stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
         stopThirdQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью третьей четверти");
         controlMenu.add(stopThirdQuarterSpeedBalls);
-        stopRedBalls=new JCheckBoxMenuItem("остановить красные мячи");
         stopFourthQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью четвертой четверти");
         controlMenu.add(stopFourthQuarterSpeedBalls);
+        stopRedBalls=new JCheckBoxMenuItem("остановить красные мячи");
+        controlMenu.addItemListener(new StopRedBallsListener());
+        stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
+        controlMenu.addItemListener(new StopGreenBallsListener());
+        stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
+        controlMenu.addItemListener(new StopBlueBallsListener());
 
        // grossFeederMenuItem = new JCheckBoxMenuItem("Обжора");
        // controlMenu.add(grossFeederMenuItem);
