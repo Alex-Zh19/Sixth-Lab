@@ -53,6 +53,11 @@ public class Field extends JPanel {
     private boolean isFirstQuarterSpeed=false;
     private boolean isThirdQuarterSpeed=false;
     private boolean isFourthQuarterSpeed=false;
+    private boolean isRedStop=false;
+    private boolean isGreenStop=false;
+    private boolean isBlueStop=false;
+    private boolean isFastStop=false;
+    private boolean isBigStop=false;
 
 
     Runnable repaintCycle=new Runnable() {
@@ -352,4 +357,60 @@ public class Field extends JPanel {
         return isFourthQuarterSpeed;
     }
 
+
+    //StopRed
+    public void IsStopRedOn(){
+        isRedStop=true;
+    }
+    public void IsStopRedOff(){
+        isRedStop=false;
+    }
+    public synchronized boolean GetIsRedStop(){
+        return isRedStop;
+    }
+
+    //StopGreen
+    public void IsStopGreenOn(){
+        isGreenStop=true;
+    }
+    public void IsStopGreenOff(){
+        isGreenStop=false;
+    }
+    public synchronized boolean GetIsGreenStop(){
+        return isGreenStop;
+    }
+
+    //StopBlue
+    public void IsStopBlueOn(){
+        isBlueStop=true;
+    }
+    public void IsStopBlueOff(){
+        isBlueStop=false;
+    }
+    public synchronized boolean GetIsBlueStop(){
+        return isBlueStop;
+    }
+
+    //stopBig
+    public void IsStopBigBallsOn(){
+        isBigStop=true;
+    }
+    public void IsStopBigBallsOff(){
+        isBigStop=false;
+    }
+    public synchronized boolean GetIsStopBigBalls(){
+        return isBigStop;
+    }
+
+
+    //stopFast
+    public void IsStopFastBallsOn(){
+        isFastStop=true;
+    }
+    public void IsStopFastBallsOff(){
+        isFastStop=false;
+    }
+    public synchronized boolean GetIsStopFastBalls(){
+        return isFastStop;
+    }
 }

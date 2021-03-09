@@ -91,11 +91,13 @@ public class MainFrame extends JFrame {
         controlMenu.add(stopSmallBalls);
         stopSlowBalls=new JCheckBoxMenuItem("Остановить медленные мячи");
         controlMenu.add(stopSlowBalls);
+        stopBigBalls=new JCheckBoxMenuItem("Остановить большие мячи");
+        controlMenu.add(stopBigBalls);
+        stopFastBalls=new JCheckBoxMenuItem("Остановить быстрые мячи");
+        controlMenu.add(stopFastBalls);
         stopSecondQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью второй четверти");
         controlMenu.add(stopSecondQuarterSpeedBalls);
         stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
-        stopBigBalls=new JCheckBoxMenuItem("Остановить большие мячи");
-        stopFastBalls=new JCheckBoxMenuItem("Остановить быстрые мячи");
         stopFirstQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью первой четверти");
         controlMenu.add(stopFirstQuarterSpeedBalls);
         stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
@@ -133,6 +135,11 @@ public class MainFrame extends JFrame {
         stopSecondQuarterSpeedBalls.addItemListener(new StopSecondQuarterBallsListener());
         stopThirdQuarterSpeedBalls.addItemListener(new StopThirdQuarterBallsListener());
         stopFourthQuarterSpeedBalls.addItemListener(new StopFourthQuarterBallsListener());
+        stopRedBalls.addItemListener(new StopRedBallsListener());
+        stopGreenBalls.addItemListener(new StopGreenBallsListener());
+        stopBlueBalls.addItemListener(new StopBlueBallsListener());
+        stopBigBalls.addItemListener(new StopBigBallsListener());
+        stopFastBalls.addItemListener(new StopFastBallsListener());
 
         add(field, BorderLayout.CENTER);
         add(buttonBox, BorderLayout.SOUTH);
@@ -482,4 +489,84 @@ public class MainFrame extends JFrame {
         }
     }
 
+    class StopRedBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopRed on");
+                field.IsStopRedOn();
+            }
+            else{
+                System.out.println("StopRed off");
+                field.IsStopRedOff();
+            }
+        }
+    }
+    class StopGreenBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopGreen on");
+               field.IsStopGreenOn();
+            }
+            else{
+                System.out.println("StopGreen off");
+                field.IsStopGreenOff();
+            }
+        }
+    }
+    class StopBlueBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopBlue on");
+                field.IsStopBlueOn();
+            }
+            else{
+                System.out.println("StopBlue off");
+                field.IsStopBlueOff();
+            }
+        }
+    }
+
+
+
+    class StopBigBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopBigBallsOn");
+                field.IsStopBigBallsOn();
+            }
+            else{
+                System.out.println("StopBigBallsOff");
+                field.IsStopBigBallsOff();
+            }
+        }
+    }
+
+
+    class StopFastBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("StopFastBallsOn");
+                field.IsStopFastBallsOn();
+            }
+            else{
+                System.out.println("StopFastBallsOff");
+                field.IsStopFastBallsOff();
+            }
+        }
+    }
 }

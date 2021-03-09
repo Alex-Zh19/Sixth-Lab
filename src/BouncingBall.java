@@ -365,10 +365,44 @@ public class BouncingBall{
             return true;
         }
 
-        if(isStopped){
+        else if(color.getRed()>2*(color.getGreen()+ color.getBlue())&&field.GetIsRedStop()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }
+        else if(color.getGreen()>2*(color.getRed()+ color.getBlue())&&field.GetIsGreenStop()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }
+        else if(color.getBlue()>2*(color.getGreen()+ color.getRed())&&field.GetIsBlueStop()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }else if(16-speed+field.GetTimeMachine()<8&&field.GetIsStopFastBalls()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }
+        else if(radius>30&&field.GetIsStopBigBalls()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }else if(isStopped){
         isStopped=false;
         field.MinusCountStoppedBall();
         }
+
         return false;
         /*
         else if(16-speed+ field.GetTimeMachine()>8&& field.GetIsStopSlowBalls()){
