@@ -104,11 +104,11 @@ public class MainFrame extends JFrame {
         stopFourthQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью четвертой четверти");
         controlMenu.add(stopFourthQuarterSpeedBalls);
         stopRedBalls=new JCheckBoxMenuItem("остановить красные мячи");
-        controlMenu.addItemListener(new StopRedBallsListener());
+        controlMenu.add(stopRedBalls);
         stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
-        controlMenu.addItemListener(new StopGreenBallsListener());
+        controlMenu.add(stopGreenBalls);
         stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
-        controlMenu.addItemListener(new StopBlueBallsListener());
+        controlMenu.add(stopBlueBalls);
 
        // grossFeederMenuItem = new JCheckBoxMenuItem("Обжора");
        // controlMenu.add(grossFeederMenuItem);
