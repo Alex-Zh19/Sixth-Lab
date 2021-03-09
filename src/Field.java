@@ -49,6 +49,11 @@ public class Field extends JPanel {
 
     private boolean isStopSmallBalls=false;
     private boolean isStopSlowBalls=false;
+    private boolean isSecondQuarterSpeed=false;
+    private boolean isFirstQuarterSpeed=false;
+    private boolean isThirdQuarterSpeed=false;
+    private boolean isFourthQuarterSpeed=false;
+
 
     Runnable repaintCycle=new Runnable() {
         @Override
@@ -267,6 +272,18 @@ public class Field extends JPanel {
         return null;
     }
 
+    public synchronized int GetCountStoppedBall(){
+        return counter;
+    }
+
+    public synchronized void AddCountStoppedBall(){
+        counter++;
+    }
+    public synchronized void MinusCountStoppedBall(){
+        if(counter>0){
+            counter--;
+        }
+    }
 
     //stopSmallBalls
     public void IsStopSmallBallsOn(){
@@ -289,19 +306,50 @@ public class Field extends JPanel {
     public synchronized boolean GetIsStopSlowBalls(){
         return isStopSlowBalls;
     }
-    public synchronized int GetCountStoppedBall(){
-        return counter;
+
+    //SecondQuarterSpeed
+    public void IsSecondQuarterSpeedOn(){
+        isSecondQuarterSpeed=true;
+    }
+    public void IsSecondQuarterSpeedOff(){
+        isSecondQuarterSpeed=false;
+    }
+    public synchronized boolean GetIsSecondQuarterSpeed(){
+        return isSecondQuarterSpeed;
     }
 
-    public synchronized void AddCountStoppedBall(){
-       counter++;
+    //FirstQuarterSpeed
+    public void IsFirstQuarterSpeedOn(){
+        isFirstQuarterSpeed=true;
     }
-    public synchronized void MinusCountStoppedBall(){
-       if(counter>0){
-        counter--;
-       }
+    public void IsFirstQuarterSpeedOff(){
+        isFirstQuarterSpeed=false;
+    }
+    public synchronized boolean GetIsFirstQuarterSpeed(){
+        return isFirstQuarterSpeed;
+    }
+
+    //ThirdQuarterSpeed
+    public void IsThirdQuarterSpeedOn(){
+        isThirdQuarterSpeed=true;
+    }
+    public void IsThirdQuarterSpeedOff(){
+        isThirdQuarterSpeed=false;
+    }
+    public synchronized boolean GetIsThirdQuarterSpeed(){
+        return isThirdQuarterSpeed;
     }
 
 
+    //FourthQuarterSpeed
+    public void IsFourthQuarterSpeedOn(){
+        isFourthQuarterSpeed=true;
+    }
+    public void IsFourthQuarterSpeedOff(){
+        isFourthQuarterSpeed=false;
+    }
+    public synchronized boolean GetIsFourthQuarterSpeed(){
+        return isFourthQuarterSpeed;
+    }
 
 }

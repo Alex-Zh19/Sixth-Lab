@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
     private JCheckBoxMenuItem stopBlueBalls;
     private JCheckBoxMenuItem stopThirdQuarterSpeedBalls;
     private JCheckBoxMenuItem stopRedBalls;
-    private JCheckBoxMenuItem stopForthQuarterSpeedBalls;
+    private JCheckBoxMenuItem stopFourthQuarterSpeedBalls;
 
     private JButton speedPlus = new JButton("-");
     private JButton speedMinus = new JButton("+");
@@ -92,14 +92,18 @@ public class MainFrame extends JFrame {
         stopSlowBalls=new JCheckBoxMenuItem("Остановить медленные мячи");
         controlMenu.add(stopSlowBalls);
         stopSecondQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью второй четверти");
+        controlMenu.add(stopSecondQuarterSpeedBalls);
         stopGreenBalls=new JCheckBoxMenuItem("Остановить зеленые мячи");
         stopBigBalls=new JCheckBoxMenuItem("Остановить большие мячи");
         stopFastBalls=new JCheckBoxMenuItem("Остановить быстрые мячи");
         stopFirstQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью первой четверти");
+        controlMenu.add(stopFirstQuarterSpeedBalls);
         stopBlueBalls=new JCheckBoxMenuItem("Остановить голубые мячи");
         stopThirdQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью третьей четверти");
+        controlMenu.add(stopThirdQuarterSpeedBalls);
         stopRedBalls=new JCheckBoxMenuItem("остановить красные мячи");
-        stopForthQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью четвертой четверти");
+        stopFourthQuarterSpeedBalls=new JCheckBoxMenuItem("Остановить мячи со скоростью четвертой четверти");
+        controlMenu.add(stopFourthQuarterSpeedBalls);
 
        // grossFeederMenuItem = new JCheckBoxMenuItem("Обжора");
        // controlMenu.add(grossFeederMenuItem);
@@ -125,6 +129,10 @@ public class MainFrame extends JFrame {
         addMouseMotionListener(new MouseListener() );
         stopSmallBalls.addItemListener(new StopSmallBallsListener());
         stopSlowBalls.addItemListener(new StopSlowBallsListener());
+        stopFirstQuarterSpeedBalls.addItemListener(new StopFirstQuarterBallsListener());
+        stopSecondQuarterSpeedBalls.addItemListener(new StopSecondQuarterBallsListener());
+        stopThirdQuarterSpeedBalls.addItemListener(new StopThirdQuarterBallsListener());
+        stopFourthQuarterSpeedBalls.addItemListener(new StopFourthQuarterBallsListener());
 
         add(field, BorderLayout.CENTER);
         add(buttonBox, BorderLayout.SOUTH);
@@ -409,6 +417,67 @@ public class MainFrame extends JFrame {
             else{
                 System.out.println("StopSlowBallsOff");
                 field.IsStopSlowBallsOff();
+            }
+        }
+    }
+
+    class StopSecondQuarterBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("secondQuarter on");
+                field.IsSecondQuarterSpeedOn();
+            }
+            else{
+                System.out.println("secondQuarter off");
+                field.IsSecondQuarterSpeedOff();
+            }
+        }
+    }
+    class StopFirstQuarterBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("firstQuarter on");
+                field.IsFirstQuarterSpeedOn();
+            }
+            else{
+                System.out.println("firstQuarter off");
+                field.IsFirstQuarterSpeedOff();
+            }
+        }
+    }
+    class StopThirdQuarterBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("tHIRDQuarter on");
+                field.IsThirdQuarterSpeedOn();
+            }
+            else{
+                System.out.println("ThirdQuarter off");
+                field.IsThirdQuarterSpeedOff();
+            }
+        }
+    }
+    class StopFourthQuarterBallsListener implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            JCheckBoxMenuItem helper=(JCheckBoxMenuItem) itemEvent.getSource();
+            if(helper.isSelected()){
+                System.out.println("FourthQuarter on");
+                field.IsFourthQuarterSpeedOn();
+            }
+            else{
+                System.out.println("FourthQuarter off");
+                field.IsFourthQuarterSpeedOff();
             }
         }
     }

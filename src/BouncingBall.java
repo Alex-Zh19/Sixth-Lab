@@ -48,6 +48,7 @@ public class BouncingBall{
         color = new Color((float)Math.random(), (float)Math.random(),
                 (float)Math.random());
 
+
         x = Math.random()*(field.getSize().getWidth() - 2*radius) + radius;
         y = Math.random()*(field.getSize().getHeight() - 2*radius) + radius;
 
@@ -336,7 +337,34 @@ public class BouncingBall{
                 isStopped=true;
             }
             return true;
+        }else if(speedX>0&&speedY<0&&field.GetIsFirstQuarterSpeed()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }else if(speedX<0&&speedY<0&&field.GetIsSecondQuarterSpeed()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
         }
+        else if(speedX<0&&speedY>0&&field.GetIsThirdQuarterSpeed()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }
+        else if(speedX>0&&speedY>0&&field.GetIsFourthQuarterSpeed()){
+            if(!isStopped){
+                field.AddCountStoppedBall();
+                isStopped=true;
+            }
+            return true;
+        }
+
         if(isStopped){
         isStopped=false;
         field.MinusCountStoppedBall();
